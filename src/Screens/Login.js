@@ -5,7 +5,7 @@ export default function Login() {
     <div> 
 
    
-<form>  
+<form>   
   <div className="mb-3"> 
     <label for="exampleInputEmail1" className="form-label">Email address</label>
     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required/>
