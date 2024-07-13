@@ -8,7 +8,7 @@ export default function Home() {
     <div>
       <div><Navbar /> </div>
       <div><Carousal/></div>
-       <div><Card/></div>
+       <div><Card/></div> 
       <div><Footer /> </div>
     </div>
   )
