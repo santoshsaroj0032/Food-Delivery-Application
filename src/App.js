@@ -13,6 +13,7 @@ import {
   Route,
   // Link 
 } from "react-router-dom";
+import Signup from './Screens/Signup.js';
 
 
 
@@ -26,7 +27,8 @@ function App() {
          
 
          <Route exact path ="/login" element ={<Login/>}  />
-           
+         <Route exact path ="/create-user" element ={<Signup/>}  />
+
         </Routes>
       </div>
     </Router>

@@ -2,7 +2,8 @@ import React from 'react'
 
 export default function Login() { 
   return (
-    <div> 
+    <> 
+    <div className='container'> 
  
    
 <form>   
@@ -24,5 +25,7 @@ export default function Login() {
 
 
     </div>
+
+    </>
   )
 }
