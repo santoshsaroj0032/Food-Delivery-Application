@@ -9,7 +9,7 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import {
   BrowserRouter as Router ,
-  Routes ,
+  Routes , 
   Route,
   // Link 
 } from "react-router-dom";
