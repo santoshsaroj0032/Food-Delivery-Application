@@ -15,13 +15,13 @@ router.post("/create-user",
     ]
     , async (req, res) => {
 
- 
+
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-    
+
 
         try {
             await User.create({
@@ -44,7 +44,61 @@ router.post("/create-user",
     });
 
 
+
+
+
+
+router.post("/login-user",
+
+
+    [
+        body("email").isEmail(),
+
+        body("password").isLength({ min: 8 }).withMessage("Password must be at least 8 characters long")
+
+    ]
+
+
+
+    , async (req, res) => {
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+
+
+        let email = req.body.email;
+
+
+        try {
+            let userData = await User.findOne({ email });
+            if (!userData) {
+                return res.status(400).json({ errors: "Incorrect Email or Password" });
+            }
+
+
+            if (!req.body.password === userData.password) {
+                return res.status(400).json({ errors: "Incorrect Email or Password" });
+
+            }
+
+            return res.json({ success: true });
+
+
+        }
+        catch (error) {
+            console.log(error);
+            res.json({ success: false });
+
+        }
+    });
+
+
+
+
+
 module.exports = router;
 
 
- 
