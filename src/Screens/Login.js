@@ -1,82 +1,76 @@
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-// import React from 'react'
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
-
-export default function Login() { 
-
-
-
-
-  const [credentials, setCredentials] = useState({   email: "", password: "" });
-
-  const onChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
-  }
+const Login = () => {
+  const [info, setInfo] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await fetch("http://localhost:5000/api/create-user", {
+      const response = await fetch("http://localhost:5000/api/login-user", {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-           email: credentials.email,
-          password: credentials.password,
-         })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: info.email, password: info.password })
       });
 
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! Status: ${response.status}`);
-      // }
+      const data = await response.json();
+      console.log(data);
 
-      const json = await response.json();
-      console.log(json);
-
-      if (!json.success) {
-        alert("Enter Valid Credentials");
+      if (!response.ok) {
+        alert(data.message || "Enter Valid Credentials!");
+        return;
       }
+
+      localStorage.setItem("userEmail", info.email);
+      localStorage.setItem("authToken", data.authToken);
+      console.log(localStorage.getItem("authToken"));
+      navigate("/");
+
     } catch (error) {
-      console.error('There was an error:', error);
+      console.error('Error:', error);
+      alert("An unexpected error occurred. Please try again later.");
     }
   }
 
-
-
-
-
-
-
-
-
-
-
+  const handleData = (event) => {
+    setInfo({ ...info, [event.target.name]: event.target.value });
+  }
 
   return (
-    <> 
-     <div className="container">
+    <div className="container">
       <form onSubmit={handleSubmit}>
-       
-        <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-          <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='email' value={credentials.email} onChange={onChange} required />
-          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+        <div className="mb-3 form-group">
+          <label htmlFor="exampleInputEmail1">Email</label>
+          <input
+            type="email"
+            className="mb-3 form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            name="email"
+            value={info.email}
+            onChange={handleData}
+            required
+          />
         </div>
-
-        <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-          <input type="password" className="form-control" id="exampleInputPassword1" name='password' value={credentials.password} onChange={onChange} required />
+        <div className="mb-3 form-group">
+          <label htmlFor="exampleInputPassword1">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+            name="password"
+            value={info.password}
+            onChange={handleData}
+            required
+          />
         </div>
-
-        
-
-        <button type="submit" className="m-3 btn btn-success">Submit</button>
-        <Link to="/create-user" className='m-3 btn btn-danger'>I'm a new user</Link>
+        <button type="submit" className="btn btn-success">Submit</button>
+        <Link to="/createuser" className="m-3 btn btn-danger">New user</Link>
       </form>
     </div>
-    </>
-  )
+  );
 }
+
+export default Login;
