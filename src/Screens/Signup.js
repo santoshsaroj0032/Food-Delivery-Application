@@ -5,7 +5,7 @@
 //   const [credentials, setCredentials] = useState({ name: "", email: "", password: "", gelocation: "" })
 
 //   const onChange = (e) => {
-//     setCredentials({ ...credentials, [e.target.name]: e.target.value })
+//     setCredentials({ ...credentials, [e.target.name]: e.target.value }) 
 //   }
 
 //   const handleSubmit = async (e) => {
