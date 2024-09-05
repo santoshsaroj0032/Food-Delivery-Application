@@ -8,7 +8,7 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import { 
-  BrowserRouter as Router ,    
+  BrowserRouter as Router ,     
   Routes , 
   Route,
   // Link  
