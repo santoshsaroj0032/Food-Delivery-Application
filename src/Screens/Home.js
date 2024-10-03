@@ -6,27 +6,27 @@ import Carousal from "../Components/Carousal";
 
 const Home = () => {
   const [foodItem, setFoodItem] = useState([]);
-  const [foodCat, setFoodCat] = useState([]);
+  const [foodCategories, setfoodCategories] = useState([]);
   const [search, setSearch] = useState("");
 
-  const loadData = async () => {
+  const loadfoodItems = async () => {
     try {
-      let data = await fetch("http://localhost:5000/api/foodData", {
+      let foodItems = await fetch("http://localhost:5000/api/foodData", {
         method: "POST",
         headers: { "Content-Type": "application/json" }
       });
-      data = await data.json();
-      setFoodItem(data[0] || []);
-      setFoodCat(data[1] || []);
-      console.log(data[0], data[1]);
+      foodItems = await foodItems.json();
+      setFoodItem(foodItems[0] || []);
+      setfoodCategories(foodItems[1] || []);
+      console.log(foodItems[0], foodItems[1]);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching foodItems:", error);
     }
   };
 
-  // Call the loadData function when the component mounts
+  // Call the loadfoodItems function when the component mounts
   useEffect(() => {
-    loadData();
+    loadfoodItems();
   }, []);
 
   return (
@@ -35,17 +35,17 @@ const Home = () => {
       <div><Carousal setSearch={setSearch} search={search}/></div>   {/* Pass setSearch as a prop */}
       <div className="container">
         {
-          Array.isArray(foodCat) && foodCat.length > 0
-          ? foodCat.map((data) => {
+          Array.isArray(foodCategories) && foodCategories.length > 0
+          ? foodCategories.map((foodItems) => {
               return (
-                <div className="row mb-3" key={data._id}>
-                  <div className="fs-3 m-3">{data.CategoryName}</div>
+                <div className="row mb-3" key={foodItems._id}>
+                  <div className="fs-3 m-3">{foodItems.CategoryName}</div>
                   <hr />
                   {
                     Array.isArray(foodItem) && foodItem.length > 0
                     ? foodItem
                         .filter((item) => 
-                          item.CategoryName === data.CategoryName && 
+                          item.CategoryName === foodItems.CategoryName && 
                           item.name.toLowerCase().includes(search.toLowerCase())
                         )
                         .map((filteredItem) => (
@@ -53,7 +53,7 @@ const Home = () => {
                             <Card foodItem={filteredItem} options={filteredItem.options[0]} />
                           </div>
                         ))
-                    : <div>No such data found</div>
+                    : <div>No such foodItems found</div>
                   }
                 </div>
               )

@@ -56,7 +56,11 @@ const mongoDB = async () => {
 
     } catch (error) {
         console.error("Database connection error:", error);
-    }
-};
+     }
+    
+    // global.food_items=foodItems;
+
+    // console.log(global.food_items);
+    };
 
 module.exports = mongoDB;

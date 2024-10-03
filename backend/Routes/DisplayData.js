@@ -6,8 +6,8 @@ const router = express.Router();
 
 router.post("/foodData", (req, res) => {
     try {
-        console.log(global.foodItem);
-        res.send([global.foodItem ]);
+        console.log(global.foodItems);
+        res.send([global.foodItems  , global.foodCategories]);
     } catch (error) {
         console.error(error.message);
         res.send("Server error");
