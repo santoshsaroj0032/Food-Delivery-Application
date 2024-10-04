@@ -1,15 +1,26 @@
 import React from 'react'
 
-export default function Card() {
+export default function Card(props) {
+
+
+let options = props.options;
+let priceOptions = Object.keys(options);
+
+
+
+
+
+
+
+
     return (
         <div>  
             <div>
                 <div className="card mt-3 " style={{ "width": "18rem", "maxHeight": "360px" }}>
-                    <img src="https://media.istockphoto.com/id/1389161234/photo/chilli-mushroom-indian-snack-food.jpg?s=612x612&w=0&k=20&c=ULd9M--SV7IKWlWk5-QUlEGn9_kYRz3EqMZX5cVhq-U=" className="card-img-top" alt="..." />
+                    <img src= {props.imgSrc} className="card-img-top" alt="..." />
                     <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">This is a Card Item .</p>
-                        <div className='container w-100'>
+                        <h5 className="card-title"> {props.foodName}</h5>
+                         <div className='container w-100'>
                             <select className='m-2 h-100  6 bg-success rounded'>
                                 {Array.from(Array(6), (e, i) => {
                                     return (
@@ -19,8 +30,9 @@ export default function Card() {
                             </select>
                             <select className='m-2 h-100   bg-success rounded' >
 
-                                <option value="half">Half</option>
-                                <option value="full">Full</option>
+                                {priceOptions.map((data)=>{
+                                    return <option key ={data} value={data}>{data}</option>
+                                    })}
 
                             </select>
 
