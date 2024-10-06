@@ -10,6 +10,7 @@ import {
   Route,
   // Link  
 } from "react-router-dom";
+import Cart from './Screens/Cart.js';
 import Signup from './Screens/Signup.js';
 import { CartProvider } from './Components/ContextReducer.js';
 
@@ -24,6 +25,8 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/create-user" element={<Signup />} />
+            <Route exact path="/cart" element={<Cart/>} />
+
           </Routes>
         </div>
       </Router>
